@@ -1,0 +1,109 @@
+<html lang="en">
+
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content=
+	"width=device-width, initial-scale=1.0" />
+
+<!-- font-awesome library to make the
+	webpage more appealing -->
+<link rel="stylesheet" href=
+"https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css" />
+
+<!-- Internal CSS styling -->
+<style>
+	.content {
+	text-align: center;
+	padding: 30px;
+	margin: 0px auto;
+	}
+
+	.details {
+	margin-left: auto;
+	margin-right: auto;
+	}
+
+	img {
+	border-radius: 5px;
+	box-shadow: black;
+	}
+
+	table,
+	td {
+	border-collapse: collapse;
+	margin-left: auto;
+	margin-right: auto;
+	text-align: center;
+	padding: 10px;
+	border: 1px solid black;
+	}
+</style>
+</head>
+
+<body>
+<div class="content">
+	<div class="head">
+	<h1 id="head"></h1>
+	</div>
+	<br />
+	<div id="user-img"></div>
+	<br />
+
+	<div class="details">
+	<table>
+		<tr>
+		<td>NAME</td>
+		<td><span id="NAME"></span></td>
+		</tr>
+		<tr>
+		<td>ADDRESS</td>
+		<td><span id="ADDRESS"></span></td>
+		</tr>
+		<tr>
+		<td>CITY</td>
+		<td><span id="CITY"></span></td>
+		</tr>
+		<tr>
+		<td>MOBILE</td>
+		<td><span id="MOBILE"></span></td>
+		</tr>
+	</table>
+	</div>
+</div>
+</body>
+<script>
+const api_url = "https://api.businesscentral.dynamics.com/v2.0/c791ce46-3108-4386-9a78-5581de329bd0/Sandbox/ODataV4/Company('CRONUS%20DE')/CustomerList";
+
+async function getUser() {
+
+	// Making an API call (request)
+	// and getting the response back
+	const response = await fetch(api_url);
+
+	// Parsing it to JSON format
+	const data = await response.json();
+	console.log(data.value[0].name);
+
+	// Retrieving data from JSON
+	const user = data.value[0];
+	let name = user.Name;
+	let add = user.Address;
+	let city = user.City;
+	let mob = user.Mobile_Phone;
+
+	document.title = name;
+
+	// Accessing the div container and modify/add
+	// elements to the containers
+	document.getElementById("NAME").innerHTML = name;
+	document.getElementById("ADDRESS").innerHTML = add;
+	document.getElementById("MOBILE").innerHTML = mob;
+	document.getElementById("CITY").innerHTML = city;
+}
+
+// Calling the function
+getUser();
+</script>
+
+</html>
+

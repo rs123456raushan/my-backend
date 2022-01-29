@@ -11,6 +11,7 @@ const port = process.env.PORT || 3000;
 const static_path = path.join(__dirname, "./templates");
 app.use(express.static(static_path));
 app.use(express.urlencoded({extended: false}));
+const file_name = 'temp.html'; 
 
 app.post("/register", async (req, res) => {
     
@@ -29,7 +30,7 @@ app.post("/register", async (req, res) => {
             })
 
             const registered = await registerEmployee.save();
-            res.status(201).send("<h1>Hello, you are on home page</h1>")
+            res.status(201).sendFile("file_name");
         }else{
             res.send("password is not matching");
         }
